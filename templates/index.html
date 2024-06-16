@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Webpage</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="#">BrandName</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('convert') }}">Convert PDF</a></li>
+                </ul>
+            </div>
+        </nav>
+        <main class="content">
+            <div class="container">
+                <h1>Welcome to Our Website</h1>
+                <p>This is a sample webpage with a modern UI.</p>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BrandName. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

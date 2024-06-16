@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download DOCX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ url_for('home') }}">BrandName</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('convert') }}">Convert PDF</a></li>
+                </ul>
+            </div>
+        </nav>
+        <main class="content">
+            <div class="container">
+                <h1>Download Your DOCX</h1>
+                <p>Conversion successful. Click the button below to download your file.</p>
+                <a href="{{ url_for('download_file', filename=filename) }}" class="button">Download DOCX</a>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BrandName. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
