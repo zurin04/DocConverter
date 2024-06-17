@@ -7,9 +7,43 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         /* Additional Styles for Convert Page */
-        .container {
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            flex-shrink: 0;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        main {
+            flex-grow: 1;
             text-align: center;
             padding: 4rem 0;
+        }
+
+        footer {
+            flex-shrink: 0;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         h1 {
@@ -18,8 +52,6 @@
         }
 
         form {
-            max-width: 400px;
-            margin: 0 auto;
             background-color: #f9f9f9;
             padding: 2rem;
             border-radius: 8px;
@@ -73,11 +105,11 @@
 </head>
 <body>
     <div class="wrapper">
-        <header class="header">
-            <nav class="navbar">
+        <header>
+            <nav>
                 <div class="container">
                     <div class="logo">
-                        <a href="#">BrandName</a>
+                        <a href="#">ZURIN</a>
                     </div>
                     <ul class="nav-links">
                         <li><a href="{{ url_for('home') }}">Home</a></li>
@@ -86,7 +118,7 @@
                 </div>
             </nav>
         </header>
-        <main class="content">
+        <main>
             <div class="container">
                 <h1>Upload a File to Convert</h1>
                 <form action="{{ url_for('convert') }}" method="post" enctype="multipart/form-data">
@@ -104,9 +136,9 @@
                 {% endwith %}
             </div>
         </main>
-        <footer class="footer">
+        <footer>
             <div class="container">
-                <p>&copy; 2024 BrandName. All rights reserved.</p>
+                <p>&copy; 2024 ZURIN. All rights reserved.</p>
             </div>
         </footer>
     </div>
