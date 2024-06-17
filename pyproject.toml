@@ -11,6 +11,7 @@ python = "^3.12"
 flask = "3.0.3"
 pdf2docx = "^0.5.8"
 werkzeug = "^3.0.3"
+pytesseract = "^0.3.10"
 
 
 [build-system]

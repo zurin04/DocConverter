@@ -5,31 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Webpage</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Additional Styles for Index Page */
+        .content {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            color: #444;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="#">BrandName</a>
+        <header class="header">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="logo">
+                        <a href="#">BrandName</a>
+                    </div>
+                    <ul class="nav-links">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('convert') }}">Convert PDF/Image</a></li>
+                    </ul>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('convert') }}">Convert PDF</a></li>
-                </ul>
-            </div>
-        </nav>
+            </nav>
+        </header>
         <main class="content">
             <div class="container">
                 <h1>Welcome to Our Website</h1>
                 <p>This is a sample webpage with a modern UI.</p>
             </div>
         </main>
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 BrandName. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 BrandName. All rights reserved.</p>
-        </div>
-    </footer>
 </body>
 </html>

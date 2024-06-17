@@ -3,34 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download DOCX</title>
+    <title>Download File</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Additional Styles for Download Page */
+        .container {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="{{ url_for('home') }}">BrandName</a>
+        <header class="header">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="logo">
+                        <a href="#">BrandName</a>
+                    </div>
+                    <ul class="nav-links">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('convert') }}">Convert PDF/Image</a></li>
+                    </ul>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('convert') }}">Convert PDF</a></li>
-                </ul>
-            </div>
-        </nav>
+            </nav>
+        </header>
         <main class="content">
             <div class="container">
-                <h1>Download Your DOCX</h1>
-                <p>Conversion successful. Click the button below to download your file.</p>
-                <a href="{{ url_for('download_file', filename=filename) }}" class="button">Download DOCX</a>
+                <h1>Your File is Ready!</h1>
+                <a href="{{ url_for('download_file', filename=filename) }}" download="{{ filename }}">Download {{ filename }}</a>
             </div>
         </main>
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 BrandName. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 BrandName. All rights reserved.</p>
-        </div>
-    </footer>
 </body>
 </html>

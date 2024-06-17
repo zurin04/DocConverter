@@ -2,10 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 import os
 from werkzeug.utils import secure_filename
 from pdf2docx import Converter
+import pytesseract
+from PIL import Image
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['ALLOWED_EXTENSIONS'] = {'pdf'}
+app.config['ALLOWED_EXTENSIONS'] = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app.secret_key = 'supersecretkey'
 
 def allowed_file(filename):
@@ -19,25 +21,36 @@ def home():
 def convert():
     if request.method == 'POST':
         if 'file' not in request.files:
-            flash('No file part')
+            flash('No file part', 'error')
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
-            flash('No selected file')
+            flash('No selected file', 'error')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(pdf_path)
-            docx_filename = filename.rsplit('.', 1)[0] + '.docx'
-            docx_path = os.path.join(app.config['UPLOAD_FOLDER'], docx_filename)
-            try:
-                convert_pdf_to_docx(pdf_path, docx_path)
-                flash('Conversion successful')
-                return redirect(url_for('download', filename=docx_filename))
-            except Exception as e:
-                flash('Conversion failed: ' + str(e))
-                return redirect(request.url)
+            if filename.rsplit('.', 1)[1].lower() == 'pdf':
+                pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(pdf_path)
+                docx_filename = filename.rsplit('.', 1)[0] + '.docx'
+                docx_path = os.path.join(app.config['UPLOAD_FOLDER'], docx_filename)
+                try:
+                    convert_pdf_to_docx(pdf_path, docx_path)
+                    flash('PDF to DOCX conversion successful', 'success')
+                    return redirect(url_for('download', filename=docx_filename))
+                except Exception as e:
+                    flash(f'PDF to DOCX conversion failed: {e}', 'error')
+                    return redirect(request.url)
+            else:
+                image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(image_path)
+                text = image_to_text(image_path)
+                text_filename = filename.rsplit('.', 1)[0] + '.txt'
+                text_path = os.path.join(app.config['UPLOAD_FOLDER'], text_filename)
+                with open(text_path, 'w') as f:
+                    f.write(text)
+                flash('Image to text conversion successful', 'success')
+                return redirect(url_for('download', filename=text_filename))
     return render_template('convert.html')
 
 @app.route('/download/<filename>')
@@ -52,6 +65,9 @@ def convert_pdf_to_docx(pdf_path, docx_path):
     cv = Converter(pdf_path)
     cv.convert(docx_path, start=0, end=None)
     cv.close()
+
+def image_to_text(image_path):
+    return pytesseract.image_to_string(Image.open(image_path))
 
 if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
